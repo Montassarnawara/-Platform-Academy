@@ -1,0 +1,36 @@
+ID: 1
+Type: Cours
+Titre: programation c
+Contenu: zsedrftgyhujikoxsdrctfvygbhun55
+Prix: 12.00
+--------------------
+ID: 2
+Type: TD
+Titre: td1 c
+Contenu: sedrftgyhu565kcdrtfvgybh
+Prix: 5.00
+--------------------
+ID: 3
+Type: TD
+Titre: td 2 c
+Contenu: qsedrftgyhujikolpgyhujik552
+Prix: 10.00
+--------------------
+ID: 11
+Type: Cours
+Titre: web3
+Contenu: wsxrdctfgyhuji,koghu
+Prix: 25.00
+--------------------
+ID: 12
+Type: TD
+Titre: td web3
+Contenu: wsedrftgyhsxdrcftgy
+Prix: 30.00
+--------------------
+ID: 13
+Type: Cours
+Titre: gestion
+Contenu: sedrfqzwsedrftedrftgrfedrftg
+Prix: 7.00
+--------------------
