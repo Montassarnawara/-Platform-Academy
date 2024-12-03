@@ -1,0 +1,66 @@
+ID: 1
+Type: 
+Titre: math
+Contenu: klhg uyut tet
+Prix: 12.99
+--------------------
+ID: 2
+Type: TD
+Titre: td1 c
+Contenu: sedrftgyhu565kcdrtfvgybh
+Prix: 11.99
+--------------------
+ID: 3
+Type: TD
+Titre: td 2 c
+Contenu: qsedrftgyhujikolpgyhujik552
+Prix: 14.00
+--------------------
+ID: 11
+Type: Cours
+Titre: web3
+Contenu: wsxrdctfgyhuji,koghu
+Prix: 15.00
+--------------------
+ID: 12
+Type: TD
+Titre: td web3
+Contenu: wsedrftgyhsxdrcftgy
+Prix: 17.00
+--------------------
+ID: 13
+Type: Cours
+Titre: gestion
+Contenu: sedrfqzwsedrftedrftgrfedrftg
+Prix: 16.00
+--------------------
+ID: 19
+Type: Cours
+Titre: c++
+Contenu: edrftgyzftzesrdftesrdf2135
+Prix: 18.00
+--------------------
+ID: 1111
+Type: Cours
+Titre: c#
+Contenu: sxdfgyhujihf5646
+Prix: 0.00
+--------------------
+ID: 121
+Type: Cours
+Titre: c++
+Contenu: u,nyhbthbtjjnjnyk
+Prix: 11.99
+--------------------
+ID: 159
+Type: TD
+Titre: d
+Contenu: dm2edfhj
+Prix: 10.60
+--------------------
+ID: 145
+Type: Cours
+Titre: philo
+Contenu: sdfghjsdfghjsdfgh
+Prix: 21.99
+--------------------

@@ -1,0 +1,18 @@
+ID: 13
+Permissions: ajouter
+--------------------------------------
+ID: 147
+Permissions: ajouter 
+--------------------------------------
+ID: 147
+Permissions: ajouter modifier supprimier
+--------------------------------------
+ID: 12
+Permissions: ajouter
+--------------------------------------
+ID: 12
+Permissions: ajouter
+--------------------------------------
+ID: 0000
+Permissions: ajouter
+--------------------------------------
