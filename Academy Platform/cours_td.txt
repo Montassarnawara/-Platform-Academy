@@ -44,7 +44,7 @@ ID: 1111
 Type: Cours
 Titre: c#
 Contenu: sxdfgyhujihf5646
-Prix: 0.00
+Prix: 14.99
 --------------------
 ID: 121
 Type: Cours
@@ -63,4 +63,20 @@ Type: Cours
 Titre: philo
 Contenu: sdfghjsdfghjsdfgh
 Prix: 21.99
+--------------------
+ID: 1111
+Type: TD
+Titre: ours
+Contenu: ddfghjkkgfdfghhfdd-tt
+Prix: 5.99
+--------------------
+ID: 1115
+Type: Cours
+Titre: HTML
+Contenu: qsdfghjk_mlkjhgf.tt
+--------------------
+ID: 1115
+Type: Cours
+Titre: HTML
+Contenu: qsdfghjk_mlkjhgf.tt
 --------------------

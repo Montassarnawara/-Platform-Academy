@@ -1,4 +1,4 @@
- #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include<time.h>
@@ -8,146 +8,6 @@
 
 
 
-// foonction etu
-void ajouter_etd()
-{
-    FILE *file;
-    if((file=fopen("fiche_etd.txt","a"))==NULL){
-        printf("impossible d'ouvrir le fichier ");
-    }
-    char id[20], NomPre[50], gr[50], password[50], hashedPassword[50];
-    printf("entrer le ID de l'etudiant:\n");
-    scanf("%s",&id);
-    printf("entrer le nom et le prenom de l'etudiant:\n");
-    getchar();
-    fgets(NomPre,sizeof(NomPre),stdin);
-    NomPre[strcspn(NomPre, "\n")] = '\0';
-    printf("le groupe de l'etudiant:\n");
-    scanf("%s",&gr);
-    printf("Entrez le mot de passe : ");
-    scanf("%s", password);
-    hashPassword(password,hashedPassword);
-    fprintf(file,"ID:  %s\n",id);
-    fprintf(file,"Nom et prenom: %s\n",NomPre);
-    fprintf(file,"Groupe: %s\n",gr);
-    fprintf(file,"Mot de passe (haché): %s\n",hashedPassword);
-    fprintf(file, "--------------------------------------\n");
-    fclose(file);
-    printf("etudiant ajouté avec succès !\n");
-}
-//securité etudiant
-
-// Fonction d'authentification des etudiant
-
-int authentifier() {
-    FILE *file;
-    char id[20], password[50], hashedPassword[50];
-    char line[200], storedId[20], storedHashedPassword[50];
-    int found = 0;
-    int i =0 ;
-    char c ;
-
-    // Demander l'ID et le mot de passe du etd
-    printf("Entrez votre ID : ");
-    scanf("%s", id);
-    printf("Entrez votre mot de passe : ");
-    while (i < sizeof(password) - 1) {
-        c = getch();
-        if (c == '\r') {
-            break;
-        }
-        password[i++] = c;
-        printf("*");
-    }
-    password[i] = '\0';
-
-    // Hacher le mot de passe fourni par l'utilisateur
-    hashPassword(password, hashedPassword);
-
-    // Ouvrir le fichier authentification.txt
-    file = fopen("fiche_etd.txt", "r");
-    if (file == NULL) {
-        printf("Erreur : Impossible d'ouvrir le fichier .\n");
-        return 0; // Échec
-    }
-
-    // Rechercher l'ID et vérifier le mot de passe
-    while (fgets(line, sizeof(line), file) != NULL) {
-        if (sscanf(line, "ID: %s\n", storedId) == 1) {
-            if (strcmp(storedId, id) == 0) {
-                // L'ID est trouvé, rechercher le mot de passe
-                while (fgets(line, sizeof(line), file) != NULL) {
-                    if (sscanf(line, "Mot de passe (haché): %s\n", storedHashedPassword) == 1) {
-                        if (strcmp(storedHashedPassword, hashedPassword) == 0) {
-                            found = 1; // Authentification réussie
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    fclose(file);
-
-    if (found) {
-        printf("Authentification réussie. Bienvenue !\n");
-        return 1; // Succès
-    } else {
-        printf("Authentification échouée. ID ou mot de passe incorrect.\n");
-        return 0; // Échec
-    }
-}
-//hellllooooooooo
-
-
-void afficher_cour_td() {
-    int ID;
-    FILE *file;
-    printf("Saisir l'identifiant du CourTD à afficher :\n");
-    scanf("%d", &ID);
-system("cls");
-    file = fopen("cours_td.txt", "r");
-    if (file == NULL) {
-        printf("Impossible d'ouvrir le fichier.\n");
-        return;
-    }
-
-    bool test = false;
-    int id;
-    char ch[256];
-    char titre[256] = "";
-    char contenu[1024] = "";
-    bool trouve = false;
-
-    while (fgets(ch, sizeof(ch), file)) {
-
-        if (strncmp(ch, "ID:", 3) == 0) {
-            sscanf(ch, "ID: %d", &id);
-            test = (id == ID);
-            if (test) {
-                trouve = true; //
-                strcpy(titre, "");
-                strcpy(contenu, "");
-            }
-        } else if (test && strncmp(ch, "Titre:", 6) == 0) {
-
-            sscanf(ch + 6, "%[^\n]", titre);
-        } else if (test && strncmp(ch, "Contenu:", 8) == 0) {
-
-            sscanf(ch + 8, "%[^\n]", contenu);
-        }
-    }
-
-    fclose(file);
-
-    if (trouve) {
-        printf("Titre : %s\n", titre);
-        printf("Contenu : %s\n", contenu);
-    } else {
-        printf("Aucun CourTD trouvé avec l'ID %d.\n", ID);
-    }
-}
 // fonction de verification
 // fct de verifer le lacces de prof
 
@@ -273,9 +133,153 @@ int authentifierProfesseur() {
 
 
 // ==== Fonctions pour l'étudiant ====
+
+
+
 #define TAILLE_MAX 256 // Taille maximale pour les chaînes
 #define MAX_TESTS 100  // Nombre maximal de tests dans le fichier
 
+
+
+void ajouter_etd()
+{
+    FILE *file;
+    if((file=fopen("fiche_etd.txt","a"))==NULL){
+        printf("impossible d'ouvrir le fichier ");
+    }
+    char id[20], NomPre[50], gr[50], password[50], hashedPassword[50];
+    printf("entrer le ID de l'etudiant:\n");
+    scanf("%s",&id);
+    printf("entrer le nom et le prenom de l'etudiant:\n");
+    getchar();
+    fgets(NomPre,sizeof(NomPre),stdin);
+    NomPre[strcspn(NomPre, "\n")] = '\0';
+    printf("le groupe de l'etudiant:\n");
+    scanf("%s",&gr);
+    printf("Entrez le mot de passe : ");
+    scanf("%s", password);
+    hashPassword(password,hashedPassword);
+    fprintf(file,"ID:  %s\n",id);
+    fprintf(file,"Nom et prenom: %s\n",NomPre);
+    fprintf(file,"Groupe: %s\n",gr);
+    fprintf(file,"Mot de passe (haché): %s\n",hashedPassword);
+    fprintf(file, "--------------------------------------\n");
+    fclose(file);
+    printf("etudiant ajouté avec succès !\n");
+}
+//securité etudiant
+
+// Fonction d'authentification des etudiant
+
+int authentifier() {
+    FILE *file;
+    char id[20], password[50], hashedPassword[50];
+    char line[200], storedId[20], storedHashedPassword[50];
+    int found = 0;
+    int i =0 ;
+    char c ;
+
+    // Demander l'ID et le mot de passe du etd
+    printf("Entrez votre ID : ");
+    scanf("%s", id);
+    printf("Entrez votre mot de passe : ");
+    while (i < sizeof(password) - 1) {
+        c = getch();
+        if (c == '\r') {
+            break;
+        }
+        password[i++] = c;
+        printf("*");
+    }
+    password[i] = '\0';
+
+    // Hacher le mot de passe fourni par l'utilisateur
+    hashPassword(password, hashedPassword);
+
+    // Ouvrir le fichier authentification.txt
+    file = fopen("fiche_etd.txt", "r");
+    if (file == NULL) {
+        printf("Erreur : Impossible d'ouvrir le fichier .\n");
+        return 0; // Échec
+    }
+
+    // Rechercher l'ID et vérifier le mot de passe
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (sscanf(line, "ID: %s\n", storedId) == 1) {
+            if (strcmp(storedId, id) == 0) {
+                // L'ID est trouvé, rechercher le mot de passe
+                while (fgets(line, sizeof(line), file) != NULL) {
+                    if (sscanf(line, "Mot de passe (haché): %s\n", storedHashedPassword) == 1) {
+                        if (strcmp(storedHashedPassword, hashedPassword) == 0) {
+                            found = 1; // Authentification réussie
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    fclose(file);
+
+    if (found) {
+        printf("Authentification réussie. Bienvenue !\n");
+        return 1; // Succès
+    } else {
+        printf("Authentification échouée. ID ou mot de passe incorrect.\n");
+        return 0; // Échec
+    }
+}
+
+
+
+void afficher_cour_td() {
+    int ID;
+    FILE *file;
+    printf("Saisir l'identifiant du CourTD à afficher :\n");
+    scanf("%d", &ID);
+system("cls");
+    file = fopen("cours_td.txt", "r");
+    if (file == NULL) {
+        printf("Impossible d'ouvrir le fichier.\n");
+        return;
+    }
+
+    bool test = false;
+    int id;
+    char ch[256];
+    char titre[256] = "";
+    char contenu[1024] = "";
+    bool trouve = false;
+
+    while (fgets(ch, sizeof(ch), file)) {
+
+        if (strncmp(ch, "ID:", 3) == 0) {
+            sscanf(ch, "ID: %d", &id);
+            test = (id == ID);
+            if (test) {
+                trouve = true; //
+                strcpy(titre, "");
+                strcpy(contenu, "");
+            }
+        } else if (test && strncmp(ch, "Titre:", 6) == 0) {
+
+            sscanf(ch + 6, "%[^\n]", titre);
+        } else if (test && strncmp(ch, "Contenu:", 8) == 0) {
+
+            sscanf(ch + 8, "%[^\n]", contenu);
+        }
+    }
+
+    fclose(file);
+
+    if (trouve) {
+        printf("Titre : %s\n", titre);
+        printf("Contenu : %s\n", contenu);
+    } else {
+        printf("Aucun CourTD trouvé avec l'ID %d.\n", ID);
+    }
+}
 typedef struct {
 
     int id;
@@ -496,7 +500,7 @@ void ecrireCoursTD(const char *fichier, CoursTD *liste, int taille) {
     }
 
     fclose(file);
-    printf("Fichier '%s' mis à jour avec succès.\n", fichier);
+    printf("Fichier '%s' mis à jour avec succes.\n", fichier);
 }
 
 // Fonction pour ajouter ou modifier les prix des cours/TD
@@ -607,7 +611,7 @@ void mettreAJourPermissions() {
     if (found) {
         remove("authentification.txt");
         rename("temp.txt", "authentification.txt");
-        printf("Permissions mises à jour avec succès pour l'ID %s.\n", id);
+        printf("Permissions mises à jour avec succes pour l'ID %s.\n", id);
     } else {
         remove("temp.txt");
         printf("ID %s introuvable dans le fichier.\n", id);
@@ -663,7 +667,7 @@ int ouvrirTest(int id) {
     }
 
 
-    printf("Entrez le titre du test (alphanumérique): ");
+    printf("Entrez le titre du test (alphanumerique): ");
     fgets(test.titreTest, sizeof(test.titreTest), stdin);
     test.titreTest[strcspn(test.titreTest, "\n")] = '\0';
 
@@ -683,7 +687,7 @@ int ouvrirTest(int id) {
     }
 
     fprintf(testFile, "ID: %d\n", id);
-    fprintf(testFile, "Matière: %s\n", test.nomMatiere);
+    fprintf(testFile, "Matiere: %s\n", test.nomMatiere);
     fprintf(testFile, "Titre: %s\n", test.titreTest);
     fprintf(testFile, "URL: %s\n", test.url);
     fprintf(testFile, "Date de fin: %s\n", test.dateFin);
@@ -691,7 +695,7 @@ int ouvrirTest(int id) {
 
     fclose(testFile);
 
-    printf("Le test a été créé avec succès pour le cours/TD avec l'ID %d.\n", id);
+    printf("Le test a ete cree avec succes pour le cours/TD avec l'ID %d.\n", id);
     return 1;
 }
 int ajouterCoursTD(int ID ,int  type, char titre[], char contenu[]) {
@@ -713,7 +717,7 @@ int ajouterCoursTD(int ID ,int  type, char titre[], char contenu[]) {
     fprintf(file, "Contenu: %s\n", contenu);
     fprintf(file, "--------------------\n"); //space pour buen mettre les donner
     fclose(file);
-    printf("Ajout réussi : %s ajouté avec succès.\n", typeContent);
+    printf("Ajout reussi : %s ajoute avec succes.\n", typeContent);
     return 1;
 }
   // 2 modifier
@@ -765,7 +769,7 @@ int modifierCoursTD(int id, char nouveauTitre[], char nouveauContenu[]) {
     if (found) {
         remove(filename);
         rename(tempFilename, filename);
-        printf("Modification réussie: Cours/TD avec ID %d a été modifié avec succès.\n", id);
+        printf("Modification reussie: Cours/TD avec ID %d a été modifié avec succès.\n", id);
         return 1;
     } else {
         remove(tempFilename); //efface le file inter si l id nexiste pas
@@ -987,7 +991,7 @@ system("cls");
 
         // Empiler le cours/TD sélectionné
         empiler(pile, liste[choix - 1]);
-        printf("Cours/TD '%s' ajouté à votre sélection.\n", liste[choix - 1].titre);
+        printf("Cours/TD '%s' ajoute à votre selection.\n", liste[choix - 1].titre);
     } while (choix != 0);
 }
 // Fonction pour calculer et afficher le total
@@ -997,7 +1001,7 @@ void afficherTotal(Node *pile) {
     float total = 0.0;
     char mail[100];
     int pay ;
-    printf("\nRésumé des cours/TD sélectionnés :\n");
+    printf("\nResume des cours/TD sélectionnes :\n");
     while (!estVide(pile)) {
         CoursTDa coursTDa = depiler(&pile);
         printf("- ID: %s | Type: %s | Titre: %s | Prix: %.2f\n",
@@ -1135,7 +1139,7 @@ void menuEtudiant() {
     } else {
         printf("Vous avez sélectionné le test \"%s\".\n", testChoisi->titre);
         printf("Lien pour télécharger la réponse : %s\n", testChoisi->reponse);
-        printf("Réponse enregistrée avec succès !\n");
+        printf("Réponse enregistree avec succes !\n");
     }
 
                 break;
@@ -1193,7 +1197,7 @@ void menuProfesseur() {
 
 
     if (verifierPermissionsProf(id0, action)) {
-        printf("Action autorisée.\n");
+        printf("Action autorisee.\n");
                 char choix ;
     int ID;
     int type;
@@ -1219,7 +1223,7 @@ void menuProfesseur() {
                ajouterCoursTD(ID,type, titre, contenu);
 
     } else {
-        printf("Action non autorisée.\n");
+        printf("Action non autorisee.\n");
     }
 
 system("cls");
@@ -1247,7 +1251,7 @@ system("cls");
 
     // fct de modif td
     if (modifierCoursTD(ID2, nouveauTitre, nouveauContenu)) {
-        printf("Le Cours/TD a été modifié avec succès !\n");
+        printf("Le Cours/TD a été modifie avec succes !\n");
     } else {
         printf("Une erreur s'est produite lors de la modification.\n");
     }
@@ -1269,19 +1273,19 @@ system("cls");
 
 
     if (verifierPermissionsProf(id01, action0)) {
-        printf("Action autorisée.\n");
+        printf("Action autorisee.\n");
                       int id;
     printf("Entrez l'ID du Cours/TD à supprimer: ");
     scanf("%d", &id);
 
     if (supprimerCoursTD(id)) {
-        printf("Le Cours/TD a été supprimé avec succès !\n");
+        printf("Le Cours/TD a été supprimé avec succes !\n");
     } else {
         printf("Une erreur s'est produite lors de la suppression.\n");
     }
 
     } else {
-        printf("Action non autorisée.\n");
+        printf("Action non autorisee.\n");
     }
 
 
@@ -1301,7 +1305,7 @@ system("cls");
     getchar();
 
     if (ouvrirTest(id1)) {
-        printf("Le test a été ouvert et enregistré avec succès.\n");
+        printf("Le test a ete ouvert et enregistré avec succès.\n");
     } else {
         printf("Une erreur s'est produite lors de l'ouverture du test.\n");
     }
@@ -1313,7 +1317,7 @@ system("cls");
                 break;
             default:
               system("cls");
-                printf("Choix invalide, veuillez réessayer.\n");
+                printf("Choix invalide, veuillez reessayer.\n");
         }
     } while (choix != 5);
 }
@@ -1353,7 +1357,7 @@ system("cls");
     afficherTotal(pile);
                 break;
         default:
-                printf("Choix invalide, veuillez réessayer.\n");
+                printf("Choix invalide, veuillez reessayer.\n");
 
     }}while(choix != 2);
 
@@ -1367,7 +1371,7 @@ void afficherMenuPrincipal() {
     printf("\n====== Menu Principal ======\n");
     printf("1. Accéder en tant qu'Admin\n");
     printf("2. Accéder en tant que Professeur\n");
-    printf("3. Accéder en tant qu'Étudiant\n");
+    printf("3. Accéder en tant qu'Etudiant\n");
     printf("4. Accéder en tant qu'Utilisateur Externe\n");
     printf("5. Creer un nouveon compte Etudiant\n");
     printf("6. Quitter\n");
@@ -1413,13 +1417,13 @@ system("cls");
                 system("cls");
                  if (authentifierProfesseur()) {
                         system("cls");
-        printf("Vous êtes connecté au système.\n");
+        printf("Vous êtes connecte au systeme.\n");
 
 
          menuProfesseur(); // Menu professeur
     } else {
         system("cls");
-        printf("Veuillez réessayer.\n");
+        printf("Veuillez reessayer.\n");
     }
 system("cls");
                 break;
@@ -1434,7 +1438,7 @@ system("cls");
             }
 
             else {
-                printf("Veuillez réessayer.\n");
+                printf("Veuillez reessayer.\n");
             }
                 break;
             case 4:
