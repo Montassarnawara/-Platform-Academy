@@ -49,10 +49,10 @@ int verifierPermissionsProf(int id0, const char *action) {
         return 0;
     }
 
-    printf("Permission accordée: L'enseignant avec ID %d peut effectuer l'action '%s'.\n", id0, action);
+    printf("Permission accordï¿½e: L'enseignant avec ID %d peut effectuer l'action '%s'.\n", id0, action);
     return 1;
 }
-// Fonction pour hacher un mot de passe (simple, à améliorer en pratique)
+// Fonction pour hacher un mot de passe (simple, ï¿½ amï¿½liorer en pratique)
 
 void hashPassword(const char *password, char *hashedPassword) {
     unsigned int hash = 0;
@@ -76,7 +76,7 @@ int authentifierProfesseur() {
     scanf("%s", id);
    printf("Entrez votre mot de passe : ");
     while (i < sizeof(password) - 1) {
-        c = getch(); // Lire le caractère sans l'afficher
+        c = getch(); // Lire le caractï¿½re sans l'afficher
         if (c == '\r') {
             break;
         }
@@ -86,13 +86,6 @@ int authentifierProfesseur() {
     password[i] = '\0';
 
 
-
-
-
-
-
-
-
     // Hacher le mot de passe fourni par l'utilisateur
     hashPassword(password, hashedPassword);
 
@@ -100,18 +93,18 @@ int authentifierProfesseur() {
     file = fopen("authentification.txt", "r");
     if (file == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier authentification.txt.\n");
-        return 0; // Échec
+        return 0; // ï¿½chec
     }
 
-    // Rechercher l'ID et vérifier le mot de passe
+    // Rechercher l'ID et vï¿½rifier le mot de passe
     while (fgets(line, sizeof(line), file) != NULL) {
         if (sscanf(line, "ID: %s\n", storedId) == 1) {
             if (strcmp(storedId, id) == 0) {
-                // L'ID est trouvé, rechercher le mot de passe
+                // L'ID est trouvï¿½, rechercher le mot de passe
                 while (fgets(line, sizeof(line), file) != NULL) {
-                    if (sscanf(line, "Mot de passe (haché): %s\n", storedHashedPassword) == 1) {
+                    if (sscanf(line, "Mot de passe (hachï¿½): %s\n", storedHashedPassword) == 1) {
                         if (strcmp(storedHashedPassword, hashedPassword) == 0) {
-                            found = 1; // Authentification réussie
+                            found = 1; // Authentification rï¿½ussie
                         }
                         break;
                     }
@@ -123,20 +116,20 @@ int authentifierProfesseur() {
     fclose(file);
 
     if (found) {
-        printf("Authentification réussie. Bienvenue !\n");
-        return 1; // Succès
+        printf("Authentification rï¿½ussie. Bienvenue !\n");
+        return 1; // Succï¿½s
     } else {
-        printf("Authentification échouée. ID ou mot de passe incorrect.\n");
-        return 0; // Échec
+        printf("Authentification ï¿½chouï¿½e. ID ou mot de passe incorrect.\n");
+        return 0; // ï¿½chec
     }
 }
 
 
-// ==== Fonctions pour l'étudiant ====
+// ==== Fonctions pour l'ï¿½tudiant ====
 
 
 
-#define TAILLE_MAX 256 // Taille maximale pour les chaînes
+#define TAILLE_MAX 256 // Taille maximale pour les chaï¿½nes
 #define MAX_TESTS 100  // Nombre maximal de tests dans le fichier
 
 
@@ -147,27 +140,38 @@ void ajouter_etd()
     if((file=fopen("fiche_etd.txt","a"))==NULL){
         printf("impossible d'ouvrir le fichier ");
     }
+    int i=0;
+    char c;
     char id[20], NomPre[50], gr[50], password[50], hashedPassword[50];
-    printf("entrer le ID de l'etudiant:\n");
+    printf("entrer le ID de l'etudiant: ");
     scanf("%s",&id);
-    printf("entrer le nom et le prenom de l'etudiant:\n");
+    printf("entrer le nom et le prenom de l'etudiant:") ;
     getchar();
     fgets(NomPre,sizeof(NomPre),stdin);
     NomPre[strcspn(NomPre, "\n")] = '\0';
-    printf("le groupe de l'etudiant:\n");
+    printf("le groupe de l'etudiant: ");
     scanf("%s",&gr);
     printf("Entrez le mot de passe : ");
-    scanf("%s", password);
+    while (i < sizeof(password) - 1) {
+        c = getch();
+        if (c == '\r') {
+            break;
+        }
+        password[i++] = c;
+        printf("*");
+    }
+    password[i] = '\0';
     hashPassword(password,hashedPassword);
     fprintf(file,"ID:  %s\n",id);
     fprintf(file,"Nom et prenom: %s\n",NomPre);
     fprintf(file,"Groupe: %s\n",gr);
-    fprintf(file,"Mot de passe (haché): %s\n",hashedPassword);
+    fprintf(file,"Mot de passe (hachï¿½): %s\n",hashedPassword);
     fprintf(file, "--------------------------------------\n");
     fclose(file);
-    printf("etudiant ajouté avec succès !\n");
+    system("cls");
+    printf("etudiant ajoutï¿½ avec succï¿½s !\n");
 }
-//securité etudiant
+//securitï¿½ etudiant
 
 // Fonction d'authentification des etudiant
 
@@ -200,18 +204,18 @@ int authentifier() {
     file = fopen("fiche_etd.txt", "r");
     if (file == NULL) {
         printf("Erreur : Impossible d'ouvrir le fichier .\n");
-        return 0; // Échec
+        return 0; // ï¿½chec
     }
 
-    // Rechercher l'ID et vérifier le mot de passe
+    // Rechercher l'ID et vï¿½rifier le mot de passe
     while (fgets(line, sizeof(line), file) != NULL) {
         if (sscanf(line, "ID: %s\n", storedId) == 1) {
             if (strcmp(storedId, id) == 0) {
-                // L'ID est trouvé, rechercher le mot de passe
+                // L'ID est trouvï¿½, rechercher le mot de passe
                 while (fgets(line, sizeof(line), file) != NULL) {
-                    if (sscanf(line, "Mot de passe (haché): %s\n", storedHashedPassword) == 1) {
+                    if (sscanf(line, "Mot de passe (hachï¿½): %s\n", storedHashedPassword) == 1) {
                         if (strcmp(storedHashedPassword, hashedPassword) == 0) {
-                            found = 1; // Authentification réussie
+                            found = 1; // Authentification rï¿½ussie
                         }
                         break;
                     }
@@ -223,11 +227,11 @@ int authentifier() {
     fclose(file);
 
     if (found) {
-        printf("Authentification réussie. Bienvenue !\n");
-        return 1; // Succès
+        printf("Authentification rï¿½ussie. Bienvenue !\n");
+        return 1; // Succï¿½s
     } else {
-        printf("Authentification échouée. ID ou mot de passe incorrect.\n");
-        return 0; // Échec
+        printf("Authentification ï¿½chouï¿½e. ID ou mot de passe incorrect.\n");
+        return 0; // ï¿½chec
     }
 }
 
@@ -236,7 +240,7 @@ int authentifier() {
 void afficher_cour_td() {
     int ID;
     FILE *file;
-    printf("Saisir l'identifiant du CourTD à afficher :\n");
+    printf("Saisir l'identifiant du CourTD ï¿½ afficher :\n");
     scanf("%d", &ID);
 system("cls");
     file = fopen("cours_td.txt", "r");
@@ -277,7 +281,7 @@ system("cls");
         printf("Titre : %s\n", titre);
         printf("Contenu : %s\n", contenu);
     } else {
-        printf("Aucun CourTD trouvé avec l'ID %d.\n", ID);
+        printf("Aucun CourTD trouvï¿½ avec l'ID %d.\n", ID);
     }
 }
 typedef struct {
@@ -286,7 +290,7 @@ typedef struct {
     char titre[TAILLE_MAX];
     char url[TAILLE_MAX];
     char reponse[TAILLE_MAX];
-    char dateFin[TAILLE_MAX]; // Date de fin sous forme de chaîne
+    char dateFin[TAILLE_MAX]; // Date de fin sous forme de chaï¿½ne
 } Test;
 // Fonction pour lire tous les tests depuis un fichier unique
 
@@ -301,7 +305,7 @@ int lireTests(const char *nomFichier, Test tests[], int *nombreTests) {
     int index = -1;
 
     while (fgets(ligne, sizeof(ligne), fichier)) {
-        // Nouvelle entrée de test
+        // Nouvelle entrï¿½e de test
         if (strncmp(ligne, "ID:", 3) == 0) {
             index++;
             sscanf(ligne, "ID: %d", &tests[index].id);
@@ -309,8 +313,8 @@ int lireTests(const char *nomFichier, Test tests[], int *nombreTests) {
             sscanf(ligne, "Titre: %[^\n]", tests[index].titre);
         } else if (strncmp(ligne, "URL:", 4) == 0) {
             sscanf(ligne, "URL: %[^\n]", tests[index].url);
-        } else if (strncmp(ligne, "Réponse:", 8) == 0) {
-            sscanf(ligne, "Réponse: %[^\n]", tests[index].reponse);
+        } else if (strncmp(ligne, "Rï¿½ponse:", 8) == 0) {
+            sscanf(ligne, "Rï¿½ponse: %[^\n]", tests[index].reponse);
         } else if (strncmp(ligne, "Date de fin:", 12) == 0) {
             sscanf(ligne, "Date de fin: %[^\n]", tests[index].dateFin);
         }
@@ -318,7 +322,7 @@ int lireTests(const char *nomFichier, Test tests[], int *nombreTests) {
 
     fclose(fichier);
     *nombreTests = index + 1;
-    return 1; // Succès
+    return 1; // Succï¿½s
 }
 // Fonction pour comparer deux dates au format YYYY-MM-DD
 
@@ -329,7 +333,7 @@ int dateDepassee(const char *dateFin) {
     struct tm *dateActuelle = localtime(&t);
 
     // Extraire les composants de la date actuelle
-    int anneeActuelle = dateActuelle->tm_year + 1900; // Année depuis 1900
+    int anneeActuelle = dateActuelle->tm_year + 1900; // Annï¿½e depuis 1900
     int moisActuel = dateActuelle->tm_mon + 1;        // Mois [0-11]
     int jourActuel = dateActuelle->tm_mday;          // Jour du mois
 
@@ -338,12 +342,12 @@ int dateDepassee(const char *dateFin) {
     sscanf(dateFin, "%d-%d-%d", &anneeFin, &moisFin, &jourFin);
 
     // Comparer les dates
-    if (anneeActuelle > anneeFin) return 1;          // Date actuelle après l'année de fin
-    if (anneeActuelle < anneeFin) return 0;          // Date actuelle avant l'année de fin
-    if (moisActuel > moisFin) return 1;              // Date actuelle après le mois de fin
+    if (anneeActuelle > anneeFin) return 1;          // Date actuelle aprï¿½s l'annï¿½e de fin
+    if (anneeActuelle < anneeFin) return 0;          // Date actuelle avant l'annï¿½e de fin
+    if (moisActuel > moisFin) return 1;              // Date actuelle aprï¿½s le mois de fin
     if (moisActuel < moisFin) return 0;              // Date actuelle avant le mois de fin
-    if (jourActuel > jourFin) return 1;              // Date actuelle après le jour de fin
-    return 0;                                        // Sinon, la date actuelle est avant ou égale
+    if (jourActuel > jourFin) return 1;              // Date actuelle aprï¿½s le jour de fin
+    return 0;                                        // Sinon, la date actuelle est avant ou ï¿½gale
 }
 // Fonction pour afficher un test
 
@@ -412,7 +416,7 @@ void ajouterProfesseur() {
     // Saisie des informations du professeur
     printf("Entrez l'ID du professeur : ");
     scanf("%s", id);
-    printf("Entrez le nom et prénom du professeur : ");
+    printf("Entrez le nom et prï¿½nom du professeur : ");
     getchar(); // Nettoyage du buffer
     fgets(nom, sizeof(nom), stdin);
     nom[strcspn(nom, "\n")] = '\0'; // Enlever le saut de ligne
@@ -433,18 +437,18 @@ void ajouterProfesseur() {
         return;
     }
 
-    // Écriture des données dans le fichier
+    // ï¿½criture des donnï¿½es dans le fichier
     fprintf(file, "ID: %s\n", id);
 
     fprintf(file, "Nom: %s\n", nom);
-    fprintf(file, "Département: %s\n", departement);
-    fprintf(file, "Mot de passe (haché): %s\n", hashedPassword);
+    fprintf(file, "Dï¿½partement: %s\n", departement);
+    fprintf(file, "Mot de passe (hachï¿½): %s\n", hashedPassword);
     fprintf(file, "--------------------------------------\n");
 
     fclose(file);
-    printf("Professeur ajouté avec succès !\n");
+    printf("Professeur ajoutï¿½ avec succï¿½s !\n");
 }
-// Structure pour représenter un cours ou un TD
+// Structure pour reprï¿½senter un cours ou un TD
 
 typedef struct {
 
@@ -452,9 +456,9 @@ typedef struct {
     char type[10];     // "Cours" ou "TD"
     char titre[50];
     char contenu[100];
-    float prix;        // Prix à ajouter
+    float prix;        // Prix ï¿½ ajouter
 } CoursTD;
-// Fonction pour lire les cours/TD à partir du fichier cours_td.txt
+// Fonction pour lire les cours/TD ï¿½ partir du fichier cours_td.txt
 
 int lireCoursTD(const char *fichier, CoursTD *liste, int tailleMax) {
     FILE *file = fopen(fichier, "r");
@@ -465,7 +469,7 @@ int lireCoursTD(const char *fichier, CoursTD *liste, int tailleMax) {
     int count = 0;
     char ligne[200];
     while (fgets(ligne, sizeof(ligne), file) && count < tailleMax) {
-        // Lire les données ligne par ligne
+        // Lire les donnï¿½es ligne par ligne
         if (strncmp(ligne, "ID:", 3) == 0) {
             sscanf(ligne, "ID: %s", liste[count].id);
         } else if (strncmp(ligne, "Type:", 5) == 0) {
@@ -477,7 +481,7 @@ int lireCoursTD(const char *fichier, CoursTD *liste, int tailleMax) {
         } else if (strncmp(ligne, "Prix:", 5) == 0) {
             sscanf(ligne, "Prix: %f", &liste[count].prix);
         } else if (strncmp(ligne, "--------------------", 20) == 0) {
-            // Passer à l'entrée suivante
+            // Passer ï¿½ l'entrï¿½e suivante
             count++;
         }
     }
@@ -486,7 +490,7 @@ int lireCoursTD(const char *fichier, CoursTD *liste, int tailleMax) {
     return count;
 }
 
-// Fonction pour écrire les cours/TD avec prix dans cours_td.txt
+// Fonction pour ï¿½crire les cours/TD avec prix dans cours_td.txt
 void ecrireCoursTD(const char *fichier, CoursTD *liste, int taille) {
     FILE *file = fopen(fichier, "w");
     if (file == NULL) {
@@ -500,7 +504,7 @@ void ecrireCoursTD(const char *fichier, CoursTD *liste, int taille) {
     }
 
     fclose(file);
-    printf("Fichier '%s' mis à jour avec succes.\n", fichier);
+    printf("Fichier '%s' mis ï¿½ jour avec succes.\n", fichier);
 }
 
 // Fonction pour ajouter ou modifier les prix des cours/TD
@@ -514,7 +518,7 @@ void ajouterPrixCoursTD(CoursTD *liste, int taille) {
     int choix;
     do {
 
-        printf("\nEntrez le numéro du cours/TD auquel vous souhaitez ajouter un prix (ou 0 pour terminer) : ");
+        printf("\nEntrez le numï¿½ro du cours/TD auquel vous souhaitez ajouter un prix (ou 0 pour terminer) : ");
         scanf("%d", &choix);
 
         if (choix < 1 || choix > taille) {
@@ -528,12 +532,12 @@ void ajouterPrixCoursTD(CoursTD *liste, int taille) {
 
         scanf("%f", &liste[choix - 1].prix);
 
-        printf("Prix mis à jour pour '%s'.\n", liste[choix - 1].titre);
+        printf("Prix mis ï¿½ jour pour '%s'.\n", liste[choix - 1].titre);
 
     } while (choix != 0);
 }
 
-// Fonction principale pour gérer le processus
+// Fonction principale pour gï¿½rer le processus
 void creerPrixCoursTD() {
     const char *fichierCoursTD = "cours_td.txt";
 
@@ -541,18 +545,18 @@ void creerPrixCoursTD() {
     int tailleCoursTD = lireCoursTD(fichierCoursTD, listeCoursTD, 100);
 
     if (tailleCoursTD == 0) {
-        printf("Aucun cours ou TD trouvé dans le fichier '%s'.\n", fichierCoursTD);
+        printf("Aucun cours ou TD trouvï¿½ dans le fichier '%s'.\n", fichierCoursTD);
         return;
     }
 system("cls");
     // Ajouter ou modifier les prix
     ajouterPrixCoursTD(listeCoursTD, tailleCoursTD);
 system("cls");
-    // Écrire les données avec prix dans le fichier cours_td.txt (mise à jour)
+    // ï¿½crire les donnï¿½es avec prix dans le fichier cours_td.txt (mise ï¿½ jour)
     ecrireCoursTD(fichierCoursTD, listeCoursTD, tailleCoursTD);
 }
 
-  // Fonction pour mettre à jour les permissions d'un professeur
+  // Fonction pour mettre ï¿½ jour les permissions d'un professeur
 
 void mettreAJourPermissions() {
 
@@ -564,12 +568,12 @@ void mettreAJourPermissions() {
     // Demander l'ID du professeur et les nouvelles permissions
     printf("Entrez l'ID du professeur : ");
     scanf("%s", id);
-    printf("Entrez les nouvelles permissions (séparées par des espaces, ex: ajouter modifier supprimer) : ");
+    printf("Entrez les nouvelles permissions (sï¿½parï¿½es par des espaces, ex: ajouter modifier supprimer) : ");
     getchar(); // Nettoyer le buffer
     fgets(newPermissions, sizeof(newPermissions), stdin);
     newPermissions[strcspn(newPermissions, "\n")] = '\0'; // Enlever le saut de ligne
 
-    // Ouvrir les fichiers nécessaires
+    // Ouvrir les fichiers nï¿½cessaires
     file = fopen("authentification.txt", "r");
     tempFile = fopen("temp.txt", "w");
     permFile = fopen("prof_permissions.txt", "a");
@@ -611,7 +615,7 @@ void mettreAJourPermissions() {
     if (found) {
         remove("authentification.txt");
         rename("temp.txt", "authentification.txt");
-        printf("Permissions mises à jour avec succes pour l'ID %s.\n", id);
+        printf("Permissions mises ï¿½ jour avec succes pour l'ID %s.\n", id);
     } else {
         remove("temp.txt");
         printf("ID %s introuvable dans le fichier.\n", id);
@@ -662,7 +666,7 @@ int ouvrirTest(int id) {
     fclose(file);
 
     if (!found) {
-        printf("Erreur: Aucun cours ou TD trouvé avec l'ID %d.\n", id);
+        printf("Erreur: Aucun cours ou TD trouvï¿½ avec l'ID %d.\n", id);
         return 0;
     }
 
@@ -769,7 +773,7 @@ int modifierCoursTD(int id, char nouveauTitre[], char nouveauContenu[]) {
     if (found) {
         remove(filename);
         rename(tempFilename, filename);
-        printf("Modification reussie: Cours/TD avec ID %d a été modifié avec succès.\n", id);
+        printf("Modification reussie: Cours/TD avec ID %d a ï¿½tï¿½ modifiï¿½ avec succï¿½s.\n", id);
         return 1;
     } else {
         remove(tempFilename); //efface le file inter si l id nexiste pas
@@ -822,7 +826,7 @@ int modifierCoursTD(int id, char nouveauTitre[], char nouveauContenu[]) {
     if (found) {
         remove(filename);
         rename(tempFilename, filename);
-        printf("Suppression réussie: Cours/TD avec ID %d a été supprimé avec succès.\n", id);
+        printf("Suppression rï¿½ussie: Cours/TD avec ID %d a ï¿½tï¿½ supprimï¿½ avec succï¿½s.\n", id);
         return 1;
     } else {
         remove(tempFilename); // efface l file inter si l id ne existe pas
@@ -852,18 +856,18 @@ void ajouterTest() {
     fprintf(fichier, "Titre : %s | Date de fin : %s\n", titre, date);
     fclose(fichier);
 
-    printf("Le test a été ajouté avec succès.\n");
+    printf("Le test a ï¿½tï¿½ ajoutï¿½ avec succï¿½s.\n");
 }
 void revoirReponses() {
 
     FILE *fichier = fopen("reponses.txt", "r");
     if (fichier == NULL) {
-        printf("Impossible d'ouvrir le fichier des réponses.\n");
+        printf("Impossible d'ouvrir le fichier des rï¿½ponses.\n");
         return;
     }
 
     char ligne[256];
-    printf("\n--- Révision des réponses des étudiants ---\n");
+    printf("\n--- Rï¿½vision des rï¿½ponses des ï¿½tudiants ---\n");
     while (fgets(ligne, sizeof(ligne), fichier)) {
         printf("%s", ligne);
     }
@@ -871,7 +875,7 @@ void revoirReponses() {
 }
 // ==== Fonctions pour l'utilisateur externe ====
 
-// Structure pour représenter un cours ou un TD avec prix
+// Structure pour reprï¿½senter un cours ou un TD avec prix
 
 typedef struct {
 
@@ -879,7 +883,7 @@ typedef struct {
     char type[10];     // "Cours" ou "TD"
     char titre[50];
     char contenu[100];
-    float prix;        // Prix associé
+    float prix;        // Prix associï¿½
 } CoursTDa;
 // Structure pour une pile (stack)
 
@@ -888,26 +892,26 @@ typedef struct Node {
     CoursTDa coursTDa;
     struct Node *next;
 } Node;
-// Fonction pour créer une pile vide
+// Fonction pour crï¿½er une pile vide
 
 Node *creerPile() {
 
     return NULL;
 }
-// Fonction pour empiler un élément dans la pile
+// Fonction pour empiler un ï¿½lï¿½ment dans la pile
 
 void empiler(Node **top, CoursTDa coursTDa) {
 
     Node *nouveau = (Node *)malloc(sizeof(Node));
     if (nouveau == NULL) {
-        printf("Erreur : Mémoire insuffisante.\n");
+        printf("Erreur : Mï¿½moire insuffisante.\n");
         return;
     }
     nouveau->coursTDa = coursTDa;
     nouveau->next = *top;
     *top = nouveau;
 }
-// Fonction pour dépiler un élément de la pile
+// Fonction pour dï¿½piler un ï¿½lï¿½ment de la pile
 
 CoursTDa depiler(Node **top) {
 
@@ -922,7 +926,7 @@ CoursTDa depiler(Node **top) {
     free(temp);
     return coursTDa;
 }
-// Fonction pour vérifier si la pile est vide
+// Fonction pour vï¿½rifier si la pile est vide
 
 int estVide(Node *top) {
 
@@ -962,7 +966,7 @@ void ajouterPrixDepuisFichier(const char *fichier, CoursTDa *liste, int taille) 
 
     fclose(file);
 }
-// Fonction pour afficher les cours/TD et permettre à l'utilisateur de sélectionner
+// Fonction pour afficher les cours/TD et permettre ï¿½ l'utilisateur de sï¿½lectionner
 
 void selectionnerCours(Node **pile, CoursTDa *liste, int taille) {
 
@@ -977,7 +981,7 @@ system("cls");
 
         }
 
-        printf("\nEntrez le numéro du cours/TD à sélectionner (ou 0 pour terminer) : ");
+        printf("\nEntrez le numero du cours/TD ï¿½ sï¿½lectionner (ou 0 pour terminer) : ");
         scanf("%d", &choix);
 
 
@@ -989,9 +993,9 @@ system("cls");
             continue;
         }
 
-        // Empiler le cours/TD sélectionné
+        // Empiler le cours/TD sï¿½lectionnï¿½
         empiler(pile, liste[choix - 1]);
-        printf("Cours/TD '%s' ajoute à votre selection.\n", liste[choix - 1].titre);
+        printf("Cours/TD '%s' ajoute ï¿½ votre selection.\n", liste[choix - 1].titre);
     } while (choix != 0);
 }
 // Fonction pour calculer et afficher le total
@@ -1001,14 +1005,14 @@ void afficherTotal(Node *pile) {
     float total = 0.0;
     char mail[100];
     int pay ;
-    printf("\nResume des cours/TD sélectionnes :\n");
+    printf("\nResume des cours/TD sï¿½lectionnes :\n");
     while (!estVide(pile)) {
         CoursTDa coursTDa = depiler(&pile);
         printf("- ID: %s | Type: %s | Titre: %s | Prix: %.2f\n",
                coursTDa.id, coursTDa.type, coursTDa.titre, coursTDa.prix);
         total += coursTDa.prix;
     }
-    printf("\nTotal à payer : %.2f\n", total);
+    printf("\nTotal ï¿½ payer : %.2f\n", total);
     printf("TAP *  1  * pour payee\n");
     scanf("%d",&pay);
      if (pay==1){
@@ -1016,25 +1020,25 @@ void afficherTotal(Node *pile) {
                 printf("reecrire le mail pour recoit votre achat\n");
                 scanf("%s",&mail);
                 system("cls");
-                printf("==== votre achat est en cours  d'envoyeé \n===");
-                printf("====bonne journeé====\n\n");
+                printf("==== votre achat est en cours  d'envoyeï¿½ \n===");
+                printf("====bonne journeï¿½====\n\n");
 
 
 
 }}
-// ==== Menus pour les différents utilisateurs ====
+// ==== Menus pour les diffï¿½rents utilisateurs ====
 
 void menuAdmin() {
 
     int choix;
     do {
-        printf("\n====== Menu Admin ======\n");
+        printf("\n======== Menu Admin ===============\n");
         printf("1. ajouter prof\n");
         printf("2. modifier autorisation\n");
         printf("3. aficher listecoursTD\n");
         printf("4. ajouter_prix\n");
         printf("5. Retour au menu principal\n");
-        printf("================================\n");
+        printf("===================================\n");
         printf("Entrez votre choix : ");
         scanf("%d", &choix);
 
@@ -1042,14 +1046,14 @@ void menuAdmin() {
 
         switch (choix) {
             case 1:
-         char choix;
          system("cls");
+         char choix10;
     do  {
     ajouterProfesseur();
     printf("Voulez-vous ajouter un autre professeur? (o/n): ");
-        scanf(" %c", &choix);
+        scanf(" %c", &choix10);
         getchar();
-        } while (choix == 'o' || choix == 'O');
+        } while ( choix10 == 'o' || choix10 == 'o');
 
                 break;
             case 2:
@@ -1078,7 +1082,7 @@ void menuAdmin() {
                 break;
             default:
                 system("cls");
-                printf("Choix invalide, veuillez réessayer.\n");
+                printf("Choix invalide, veuillez rï¿½essayer.\n");
         }
     } while (choix != 5);
 }
@@ -1086,11 +1090,11 @@ void menuEtudiant() {
 
     int choix;
     do {
-        printf("\n====== Menu Étudiant ======\n");
-        printf("1. AfficheRépondre à un test\n");
+        printf("\n========= Menu ï¿½tudiant ==============\n");
+        printf("1. AfficheRï¿½pondre ï¿½ un test\n");
         printf("2. Afficher la liste cours/ou TD\n");
         printf("3. Retour au menu principal\n");
-        printf("================================\n");
+        printf("=====================================\n");
         printf("Entrez votre choix : ");
         scanf("%d", &choix);
 
@@ -1115,7 +1119,7 @@ void menuEtudiant() {
         printf("-----------------------\n");
     }
 
-    // Permettre à l'étudiant de choisir un test
+    // Permettre ï¿½ l'ï¿½tudiant de choisir un test
     int choix;
     printf("Entrez l'ID du test que vous voulez choisir : ");
     scanf("%d", &choix);
@@ -1133,13 +1137,13 @@ void menuEtudiant() {
         printf("Test avec l'ID %d introuvable.\n", choix);
         return 1;
     }
-    // Vérifier si la date de fin est dépassée
+    // Vï¿½rifier si la date de fin est dï¿½passï¿½e
     if (dateDepassee(testChoisi->dateFin)) {
-        printf("La date de fin du test \"%s\" est dépassée. Vous ne pouvez pas répondre à ce test.\n", testChoisi->titre);
+        printf("La date de fin du test \"%s\" est dï¿½passï¿½e. Vous ne pouvez pas rï¿½pondre ï¿½ ce test.\n", testChoisi->titre);
     } else {
-        printf("Vous avez sélectionné le test \"%s\".\n", testChoisi->titre);
-        printf("Lien pour télécharger la réponse : %s\n", testChoisi->reponse);
-        printf("Réponse enregistree avec succes !\n");
+        printf("Vous avez sï¿½lectionnï¿½ le test \"%s\".\n", testChoisi->titre);
+        printf("Lien pour tï¿½lï¿½charger la rï¿½ponse : %s\n", testChoisi->reponse);
+        printf("Rï¿½ponse enregistree avec succes !\n");
     }
 
                 break;
@@ -1162,7 +1166,7 @@ void menuEtudiant() {
                 break;
             default:
                 system("cls");
-                printf("Choix invalide, veuillez réessayer.\n");
+                printf("Choix invalide, veuillez rï¿½essayer.\n");
         }
     } while (choix != 3);
 }
@@ -1170,13 +1174,13 @@ void menuProfesseur() {
 
     int choix;
     do {
-        printf("\n====== Menu Professeur ======\n");
+        printf("\n========== Menu Professeur ===============\n");
         printf("1. Ajouter un nouveau coursTD\n");
         printf("2. modifier coursTD\n");
-        printf("3.supprimer coursTD\n");
-        printf("4.ajoutertest\n");
+        printf("3. supprimer coursTD\n");
+        printf("4. ajouter test\n");
         printf("5. Retour au menu principal\n");
-        printf("================================\n");
+        printf("========================================\n");
         printf("Entrez votre choix : ");
         scanf("%d", &choix);
 
@@ -1221,12 +1225,12 @@ void menuProfesseur() {
         getchar();
        } while (choix == 'o' || choix == 'O');
                ajouterCoursTD(ID,type, titre, contenu);
+               system("cls");
 
     } else {
-        printf("Action non autorisee.\n");
-    }
-
 system("cls");
+printf("Action non autorisee.\n");
+    }
                 break;
 
             case 2:
@@ -1236,7 +1240,7 @@ system("cls");
     char nouveauContenu[500];
 
     // info enterre
-    printf("Entrez l'ID du Cours/TD à modifier: ");
+    printf("Entrez l'ID du Cours/TD ï¿½ modifier: ");
     scanf("%d", &ID2);
 
     getchar();
@@ -1251,11 +1255,12 @@ system("cls");
 
     // fct de modif td
     if (modifierCoursTD(ID2, nouveauTitre, nouveauContenu)) {
-        printf("Le Cours/TD a été modifie avec succes !\n");
+            system("cls");
+        printf("Le Cours/TD a ï¿½tï¿½ modifie avec succes !\n");
     } else {
+        system("cls");
         printf("Une erreur s'est produite lors de la modification.\n");
     }
-system("cls");
                 break;
             case 3:
                 system("cls");
@@ -1275,26 +1280,23 @@ system("cls");
     if (verifierPermissionsProf(id01, action0)) {
         printf("Action autorisee.\n");
                       int id;
-    printf("Entrez l'ID du Cours/TD à supprimer: ");
+    printf("Entrez l'ID du Cours/TD ï¿½ supprimer: ");
     scanf("%d", &id);
 
     if (supprimerCoursTD(id)) {
-        printf("Le Cours/TD a été supprimé avec succes !\n");
+            system("cls");
+        printf("Le Cours/TD a ï¿½tï¿½ supprimï¿½ avec succes !\n");
     } else {
+        system("cls");
         printf("Une erreur s'est produite lors de la suppression.\n");
     }
 
     } else {
+        system("cls");
         printf("Action non autorisee.\n");
     }
 
-
-
-
-
-
-system("cls");
-                break;
+    break;
 
             case 4:
                 system("cls");
@@ -1305,11 +1307,12 @@ system("cls");
     getchar();
 
     if (ouvrirTest(id1)) {
-        printf("Le test a ete ouvert et enregistré avec succès.\n");
+        system("cls");
+        printf("Le test a ete ouvert et enregistrï¿½ avec succï¿½s.\n");
     } else {
+        system("cls");
         printf("Une erreur s'est produite lors de l'ouverture du test.\n");
     }
-system("cls");
                 break;
             case 5:
 
@@ -1325,10 +1328,10 @@ void menuExterne() {
 
     int choix;
     do {
-        printf("\n====== Menu Utilisateur Externe ======\n");
+        printf("\n========== Menu Utilisateur Externe ==============\n");
         printf("1.les cours_TD a achetete.\n");
         printf("2.Retour au menu principal.\n");
-        printf("================================\n");
+        printf("==================================================\n");
         printf("Entrez votre choix : ");
         scanf("%d", &choix);
         switch (choix) {
@@ -1340,20 +1343,20 @@ void menuExterne() {
              int tailleCoursTD = lireCoursTD(fichierCoursTD, listeCoursTD, 100);
 
              if (tailleCoursTD == 0) {
-             printf("Aucun cours ou TD trouvé dans le fichier '%s'.\n", fichierCoursTD);
+             printf("Aucun cours ou TD trouvï¿½ dans le fichier '%s'.\n", fichierCoursTD);
             return 0;
             }
 system("cls");
     // Ajouter les prix depuis prix_cours_td.txt
     ajouterPrixDepuisFichier(fichierCoursTD, listeCoursTD, tailleCoursTD);
 
-    // Gérer les cours/TD sélectionnés avec une pile
+    // Gï¿½rer les cours/TD sï¿½lectionnï¿½s avec une pile
     Node *pile = creerPile();
 system("cls");
-    // Permettre à l'utilisateur de sélectionner des cours/TD
+    // Permettre ï¿½ l'utilisateur de sï¿½lectionner des cours/TD
     selectionnerCours(&pile, listeCoursTD, tailleCoursTD);
 system("cls");
-    // Afficher le total à payer
+    // Afficher le total ï¿½ payer
     afficherTotal(pile);
                 break;
         default:
@@ -1368,21 +1371,20 @@ system("cls");
 
 void afficherMenuPrincipal() {
 
-    printf("\n====== Menu Principal ======\n");
-    printf("1. Accéder en tant qu'Admin\n");
-    printf("2. Accéder en tant que Professeur\n");
-    printf("3. Accéder en tant qu'Etudiant\n");
-    printf("4. Accéder en tant qu'Utilisateur Externe\n");
+    printf("\n========== Menu Principal ===============\n");
+    printf("1. Accï¿½der en tant qu'Admin\n");
+    printf("2. Accï¿½der en tant que Professeur\n");
+    printf("3. Accï¿½der en tant qu'Etudiant\n");
+    printf("4. Accï¿½der en tant qu'Utilisateur Externe\n");
     printf("5. Creer un nouveon compte Etudiant\n");
     printf("6. Quitter\n");
-    printf("================================\n");
+    printf("========================================\n");
     printf("Entrez votre choix : ");
 }
 int main() {
 
     int choix;
     do {
-system("cls");
         afficherMenuPrincipal(); // Afficher le menu principal
         scanf("%d", &choix);
         switch (choix) {
@@ -1417,7 +1419,7 @@ system("cls");
                 system("cls");
                  if (authentifierProfesseur()) {
                         system("cls");
-        printf("Vous êtes connecte au systeme.\n");
+        printf("Vous ï¿½tes connecte au systeme.\n");
 
 
          menuProfesseur(); // Menu professeur
@@ -1425,7 +1427,6 @@ system("cls");
         system("cls");
         printf("Veuillez reessayer.\n");
     }
-system("cls");
                 break;
             case 3:
 system("cls");
@@ -1433,11 +1434,12 @@ system("cls");
                 system("cls");
 
 
-                menuEtudiant();    //  Menu étudiant
+                menuEtudiant();    //  Menu ï¿½tudiant
                 system("cls");
             }
 
             else {
+                    system("cls");
                 printf("Veuillez reessayer.\n");
             }
                 break;
@@ -1455,17 +1457,17 @@ system("cls");
                 }
                 break;
             case 5:
-system("cls");
-                printf("ajouter etudaint");
-                  system("cls");
+                system("cls");
                   ajouter_etd();  // ajouteretud();
-
+                 break;
 
             case 6:
+                system("cls");
                 printf("Quitter le programme. Merci pour votre utilisation !\n");
                 break;
             default:
-                printf("Choix invalide, veuillez réessayer.\n");
+                system("cls");
+                printf("Choix invalide, veuillez rï¿½essayer.\n");
         }
 
 
@@ -1474,4 +1476,3 @@ system("cls");
 
     return 0;
 }
-
